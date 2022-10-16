@@ -1,0 +1,2015 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ProductionLaitiere\_vf}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{read\PYZus{}csv}\PY{p}{,} \PY{n}{to\PYZus{}datetime}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{dates} \PY{k}{as} \PY{n+nn}{mdates}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xtick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ytick}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{axes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{,} \PY{n}{titlesize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{L'Offre}\label{loffre}
+
+    \subsection{La diminuition dans le nombre de fermes laitières au
+Canada}\label{la-diminuition-dans-le-nombre-de-fermes-laitiuxe8res-au-canada}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{fermes} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fermes\PYZus{}temps.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Québec et Ontario}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{QC} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{ON}\PY{p}{)}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Ouest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{MB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{SK} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{AB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{BC}\PY{p}{)}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Atlantique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{NB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{NS} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{PE} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{NL}\PY{p}{)}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QC\PYZhy{}ON}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{QC} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{ON}\PY{p}{)}\PY{o}{/}\PY{n}{fermes}\PY{o}{.}\PY{n}{Canada}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ouest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{MB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{SK} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{AB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{BC}\PY{p}{)}\PY{o}{/}\PY{n}{fermes}\PY{o}{.}\PY{n}{Canada}
+         \PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Atlantique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{fermes}\PY{o}{.}\PY{n}{NB} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{NS} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{PE} \PY{o}{+} \PY{n}{fermes}\PY{o}{.}\PY{n}{NL}\PY{p}{)}\PY{o}{/}\PY{n}{fermes}\PY{o}{.}\PY{n}{Canada}
+         \PY{n}{fermes}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:}    Année   BC   AB   SK   MB    ON    QC   NB   NS   PE  NL  Canada  \textbackslash{}
+         0   2017  400  523  160  282  3613  5368  194  213  166  32   10951   
+         1   2016  417  531  159  285  3731  5546  199  221  168  32   11289   
+         2   2015  437  547  163  299  3834  5766  206  225  174  32   11683   
+         3   2014  455  566  166  308  3926  5894  206  229  180  32   11962   
+         4   2013  475  571  166  321  3997  6038  211  235  187  33   12234   
+         
+            Québec et Ontario  Provinces de l'Ouest  Provinces de l'Atlantique  \textbackslash{}
+         0               8981                  1365                        605   
+         1               9277                  1392                        620   
+         2               9600                  1446                        637   
+         3               9820                  1495                        647   
+         4              10035                  1533                        666   
+         
+               QC-ON     Ouest  Atlantique  
+         0  0.820108  0.124646    0.055246  
+         1  0.821773  0.123306    0.054921  
+         2  0.821707  0.123770    0.054524  
+         3  0.820933  0.124979    0.054088  
+         4  0.820255  0.125307    0.054438  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fermes}\PY{o}{.}\PY{n}{Canada}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Québec et Ontario}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fermes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Ouest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fermes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fermes}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Atlantique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nombre de fermes (x 1000)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nombre de fermes laitières}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Source:
+\href{http://aimis-simia-cdic-ccil.agr.gc.ca/rp/index-fra.cfm?action=pR\&r=720\&pdctc=}{Centre
+Canadien d'Information Laitière (CCIL), Rapport D056}
+
+    En 2017, on dénombrait 10951 fermes laitières au Canada, le Québec et
+l'Ontario accueillaient 82 \% de ces fermes, les provinces de l'Ouest,
+12,5 \% et les provinces de l'Atlantique, 5,5 \%.
+
+    \subsection{Le Producteurs Laitiers au
+Québec}\label{le-producteurs-laitiers-au-quuxe9bec}
+
+Producteurs laitiers: nombre de producteurs distincts qui ont vendu du
+lait à la Fédération des producteurs de lait du Québec.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{producteurs} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProducteursLaitiers.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                             \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{producteurs} \PY{o}{=} \PY{n}{producteurs}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}producteurs.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{producteurs}\PY{o}{.}\PY{n}{temps}\PY{p}{,} \PY{n}{producteurs}\PY{o}{.}\PY{n}{valeur}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nombre de producteurs laitiers (x 1000)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nombre de producteurs laitiers au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sources: Institut de la statistique du Québec (ISQ), Fédération des
+producteurs de lait du Québec (FPLQ) Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec}
+
+    Le Québec compte actuellement 5106 producteurs laitiers (juillet 2018),
+un chiffre qui représente 50\% de celui de 1999.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{producteursG} \PY{o}{=} \PY{n}{producteurs}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{producteurs}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+         \PY{n}{producteurs\PYZus{}year} \PY{o}{=} \PY{n}{producteursG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12}
+         
+         \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+         \PY{n}{producteurs\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{producteurs\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+         \PY{n}{producteurs\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} temps
+         2014    5862.000000
+         2015    5712.750000
+         2016    5502.750000
+         2017    5336.000000
+         2018    5178.714286
+         Name: valeur, dtype: float64
+\end{Verbatim}
+            
+    \subsection{Le Droit de Production au Québec - matière grasse
+(MG)}\label{le-droit-de-production-au-quuxe9bec---matiuxe8re-grasse-mg}
+
+    Depuis les années 1970, le système de gestion de l'offre pour le marché
+des produits laitiers (de volaille et d'oeufs aussi) est appliqué au
+Canada. C'est un mécanisme de contrôle de la production de manière à
+stabiliser les revenus et à éviter les surplus de production coûteux.
+
+La Commission canadienne du lait
+(\href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?id=3781}{CCL}) est une
+société d'État responsable de coordonner les politiques laitières
+fédérales et provinciales. La CCL établit chaque année le prix de
+soutien du beurre et de la poudre de lait écrémé, les coûts de
+productions à la ferme (CdP). Ces prix servent de référence aux offices
+de commercialisation provinciaux de mise en marché pour fixer le prix du
+lait de transformation dans chaque province. Dans le cas du Québec, cet
+office est la \href{http://lait.org/}{Féderation des Producteurs de Lait
+du Québec (FPLQ)}.
+
+La CCL préside le Comité canadien de gestion des approvisionnements de
+lait (CCGAL) qui établit aussi chaque année un niveau cible pour la
+production nationale de \textbf{lait de transformation}, ou quota de
+mise en marché (QMM), sur la base de matière grasse (la composition
+standard d'un hectolitre de lait contient 3,6 kg de matière grasse),
+pour attendre aux besoins canadiens (demande). La CCL procède aussi une
+révision mensuel du QMM pour capter plus rapidement les variations
+importantes des marchés (\textbf{gestion en continu du quota}), soit les
+tendances de la demande et de l'offre (production laitière).
+
+Le CCGAL applique les dispositions du Plan national de commercialisation
+du lait (PNCL) qui prévoit la part du QMM de chaque province et contient
+des dispositions pour le partage de toute augmentation ou diminution de
+ce quota.
+
+Au Québec, les PLQ ont les pouvoirs délégués pour gérer la politique
+laitière provinciale.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{quota} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DroitProductionMatiereGrasse.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                             \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{quota} \PY{o}{=} \PY{n}{quota}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1er niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                       \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{quota}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:}                                  element     detail territoire      temps  \textbackslash{}
+         0  Droit de production (matière grasse)   Quotidien     Québec 1999-01-01   
+         1  Droit de production (matière grasse)   Quotidien     Québec 1999-02-01   
+         2  Droit de production (matière grasse)   Quotidien     Québec 1999-03-01   
+         3  Droit de production (matière grasse)   Quotidien     Québec 1999-04-01   
+         4  Droit de production (matière grasse)   Quotidien     Québec 1999-05-01   
+         
+           unite  valeur  note  
+         0    kg  288316   NaN  
+         1    kg  287350   NaN  
+         2    kg  287327   NaN  
+         3    kg  288583   NaN  
+         4    kg  288174   NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{quota\PYZus{}q} \PY{o}{=} \PY{n}{quota}\PY{p}{[}\PY{n}{quota}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quotidien}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{quota\PYZus{}m} \PY{o}{=} \PY{n}{quota}\PY{p}{[}\PY{n}{quota}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mensuel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{}quota\PYZus{}q.tail()}
+         \PY{n}{quota\PYZus{}m}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:}                                    element   detail territoire      temps  \textbackslash{}
+         465  Droit de production (matière grasse)   Mensuel     Québec 2018-03-01   
+         466  Droit de production (matière grasse)   Mensuel     Québec 2018-04-01   
+         467  Droit de production (matière grasse)   Mensuel     Québec 2018-05-01   
+         468  Droit de production (matière grasse)   Mensuel     Québec 2018-06-01   
+         469  Droit de production (matière grasse)   Mensuel     Québec 2018-07-01   
+         
+             unite    valeur  note  
+         465    kg  12358259   NaN  
+         466    kg  11953051   NaN  
+         467    kg  12165295   NaN  
+         468    kg  11774861   NaN  
+         469    kg  11741991   NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+         
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{quota\PYZus{}q}\PY{o}{.}\PY{n}{temps}\PY{p}{,} \PY{n}{quota\PYZus{}q}\PY{o}{.}\PY{n}{valeur}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{01\PYZhy{}2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{08\PYZhy{}2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000 kg de MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quota quotidien}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{quota\PYZus{}m}\PY{o}{.}\PY{n}{temps}\PY{p}{,} \PY{n}{quota\PYZus{}m}\PY{o}{.}\PY{n}{valeur}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{01\PYZhy{}2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{08\PYZhy{}2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M kg de MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Droit de production mensuelle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sources: Fédération des producteurs de lait du Québec (FPLQ)
+Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec (ISQ)}
+
+    Il est important de noter que les quotas quotidien ou les droit de
+production mensuelle établis par les PLQ (quotidien et mensuel) sont
+gérés pour atendre le quota alloué au Québec (la cible de production)
+pour les 12 mois suivants.
+
+    \subsubsection{Est-ce que l'écart entre la production et les quotas
+provinciaux est stable dans le
+temps?}\label{est-ce-que-luxe9cart-entre-la-production-et-les-quotas-provinciaux-est-stable-dans-le-temps}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{ecart} \PY{o}{=} \PY{n}{quota}\PY{p}{[}\PY{n}{quota}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..Écart mensuel à la production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{ecart}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:}                                    element                           detail  \textbackslash{}
+         700  Droit de production (matière grasse)   ..Écart mensuel à la production   
+         701  Droit de production (matière grasse)   ..Écart mensuel à la production   
+         702  Droit de production (matière grasse)   ..Écart mensuel à la production   
+         703  Droit de production (matière grasse)   ..Écart mensuel à la production   
+         704  Droit de production (matière grasse)   ..Écart mensuel à la production   
+         
+             territoire      temps unite  valeur  note  
+         700     Québec 2018-03-01    kg   21418   NaN  
+         701     Québec 2018-04-01    kg   27065   NaN  
+         702     Québec 2018-05-01    kg   57230   NaN  
+         703     Québec 2018-06-01    kg -132735   NaN  
+         704     Québec 2018-07-01    kg -331820   NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}fig.autofmt\PYZus{}xdate(rotation=45)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ecart}\PY{o}{.}\PY{n}{temps}\PY{p}{,} \PY{n}{ecart}\PY{o}{.}\PY{n}{valeur}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,}
+                 \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1999\PYZhy{}01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}07}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datetime64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                 \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.set\PYZus{}xlim(\PYZsq{}2016\PYZhy{}01\PYZsq{},\PYZsq{}2018\PYZhy{}07\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1000 kg de MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Écart mensuel à la production de MG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sources: Fédération des producteurs de lait du Québec (FPLQ)
+Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec (ISQ)}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{moyenne (x 1000 kg): }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{.i}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{ecart}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{écart\PYZhy{}type (x 1000 kg): }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{.i}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{ecart}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+moyenne (x 1000 kg): 434
+écart-type (x 1000 kg): 466
+
+    \end{Verbatim}
+
+    La production mensuelle de matière grasse au Québec est restée en
+moyenne 434.000 kg au-dessus du droit à la production depuis l'an 2000.
+L'écart-type est 466.000 kg. Une saisonnalité annuelle est observée dans
+l'écart entre la production et les quotas. Les écarts minimum se
+produisent généralement au mois de juin. Les écarts positifs montrent
+que la production au Québec a dépassé le quota alloué ces dernières
+années.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{ecartG} \PY{o}{=} \PY{n}{ecart}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{ecart}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+         \PY{n}{ecart\PYZus{}year} \PY{o}{=} \PY{n}{ecartG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+         \PY{n}{ecart\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{ecart\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+         
+         \PY{n}{ecart\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}quota\PYZus{}m.tail()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} temps
+         2014    10493466
+         2015    13040112
+         2016     4771357
+         2017    -3990941
+         2018    -1239102
+         Name: valeur, dtype: int64
+\end{Verbatim}
+            
+    \subsection{Le prix moyenne du lait à la ferme au
+Québec}\label{le-prix-moyenne-du-lait-uxe0-la-ferme-au-quuxe9bec}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{prix} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PrixMoyenne.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{decimal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                             \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{prix} \PY{o}{=} \PY{n}{prix}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1er niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}prix.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{prix\PYZus{}b} \PY{o}{=} \PY{n}{prix}\PY{p}{[}\PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Type de production ou marché)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                       \PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Composantes laitières)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                       \PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..Montant brut}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{prix\PYZus{}b} \PY{o}{=} \PY{n}{prix\PYZus{}b}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valeur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix moyen brut au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{prix\PYZus{}b}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:}                  element                               detail1  \textbackslash{}
+         230  Prix moyen du lait   Total (Type de production ou marché)   
+         231  Prix moyen du lait   Total (Type de production ou marché)   
+         232  Prix moyen du lait   Total (Type de production ou marché)   
+         233  Prix moyen du lait   Total (Type de production ou marché)   
+         234  Prix moyen du lait   Total (Type de production ou marché)   
+         
+                                    detail2         detail3 territoire      temps  \textbackslash{}
+         230  Total (Composantes laitières)  ..Montant brut     Québec 2018-03-01   
+         231  Total (Composantes laitières)  ..Montant brut     Québec 2018-04-01   
+         232  Total (Composantes laitières)  ..Montant brut     Québec 2018-05-01   
+         233  Total (Composantes laitières)  ..Montant brut     Québec 2018-06-01   
+         234  Total (Composantes laitières)  ..Montant brut     Québec 2018-07-01   
+         
+             unite  Prix moyen brut au Québec note  
+         230  \$/hl                    75.0989  NaN  
+         231  \$/hl                    72.1910  NaN  
+         232  \$/hl                    74.5614  NaN  
+         233  \$/hl                    72.7757  NaN  
+         234  \$/hl                    73.3016  NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{prix\PYZus{}bG} \PY{o}{=} \PY{n}{prix\PYZus{}b}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix moyen brut au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{prix\PYZus{}b}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+         \PY{n}{prix\PYZus{}b\PYZus{}year} \PY{o}{=} \PY{n}{prix\PYZus{}bG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12}
+         
+         \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+         \PY{n}{prix\PYZus{}b\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{prix\PYZus{}b\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{prix\PYZus{}b\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} temps
+         2014    83.009325
+         2015    78.574733
+         2016    78.258592
+         2017    77.691883
+         2018    74.497900
+         Name: Prix moyen brut au Québec, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{prix\PYZus{}n} \PY{o}{=} \PY{n}{prix}\PY{p}{[}\PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Type de production ou marché)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                       \PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Composantes laitières)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                       \PY{p}{(}\PY{n}{prix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{detail3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..Montant net}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{prix\PYZus{}n} \PY{o}{=} \PY{n}{prix\PYZus{}n}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valeur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix moyen net au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{prix\PYZus{}nG} \PY{o}{=} \PY{n}{prix\PYZus{}n}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix moyen net au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{prix\PYZus{}n}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+         \PY{n}{prix\PYZus{}n\PYZus{}year} \PY{o}{=} \PY{n}{prix\PYZus{}nG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{12}
+         
+         \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+         \PY{n}{prix\PYZus{}n\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{prix\PYZus{}n\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} le coût de production à la ferme (CCL)}
+         \PY{n}{CdP} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CdP.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{prix\PYZus{}b\PYZus{}year}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{prix\PYZus{}n\PYZus{}year}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{CdP}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{CdP}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CdP du lait à la ferme (CCL)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix moyen du lait et son coût de production à la ferme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix (\PYZdl{} / hl)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sources: Fédération des producteurs de lait du Québec (FPLQ),
+\href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?link=209}{Commission
+Canadienne du lait (CCL)} Compilations:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec (ISQ)}
+
+    Le prix moyen à la ferme au Québec est resté au dessus des coûts depuis
+2010. Cepandant, le comportement des prix s'est inversé au cours de la
+dernière année
+(\href{https://ici.radio-canada.ca/nouvelle/1101805/baisse-prix-lait-inquietude-producteurs-laitiers}{La
+dégringolade du prix du lait inquiète les producteurs laitiers,
+radio-canada}).
+
+    \subsection{La Production, les Frais et les Recettes Laitières au
+Québec}\label{la-production-les-frais-et-les-recettes-laitiuxe8res-au-quuxe9bec}
+
+    \subsubsection{La production}\label{la-production}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} La prduction du lait au Québec javier 1999 \PYZhy{} julliet 2018 (PLQ)}
+          
+          \PY{n}{production} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{decimal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                              \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{production} \PY{o}{=} \PY{n}{production}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1er niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}production.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{prod\PYZus{}lait} \PY{o}{=} \PY{n}{production}\PY{p}{[}\PY{p}{(}\PY{n}{production}\PY{o}{.}\PY{n}{detail1} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Type de production ou marché)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                                 \PY{p}{(}\PY{n}{production}\PY{o}{.}\PY{n}{detail2} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Composantes laitières)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{prod\PYZus{}lait}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:}                   element                               detail1  \textbackslash{}
+          230  Production laitière   Total (Type de production ou marché)   
+          231  Production laitière   Total (Type de production ou marché)   
+          232  Production laitière   Total (Type de production ou marché)   
+          233  Production laitière   Total (Type de production ou marché)   
+          234  Production laitière   Total (Type de production ou marché)   
+          
+                                     detail2 territoire      temps unite      valeur  \textbackslash{}
+          230  Total (Composantes laitières)     Québec 2018-03-01    hl  2932078.73   
+          231  Total (Composantes laitières)     Québec 2018-04-01    hl  2835211.42   
+          232  Total (Composantes laitières)     Québec 2018-05-01    hl  2925285.06   
+          233  Total (Composantes laitières)     Québec 2018-06-01    hl  2820540.22   
+          234  Total (Composantes laitières)     Québec 2018-07-01    hl  2822621.42   
+          
+               note  
+          230   NaN  
+          231   NaN  
+          232   NaN  
+          233   NaN  
+          234   NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{prod\PYZus{}laitG} \PY{o}{=} \PY{n}{prod\PYZus{}lait}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{prod\PYZus{}lait}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{prod\PYZus{}lait\PYZus{}year} \PY{o}{=} \PY{n}{prod\PYZus{}laitG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{production\PYZus{}producteur} \PY{o}{=} \PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{o}{/}\PY{n}{producteurs\PYZus{}year}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{c+c1}{\PYZsh{}prod\PYZus{}lait\PYZus{}year.tail()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{)}
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{million hectolitre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production laitière annuelle au Québec (1999 \PYZhy{} 2018)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                   \PY{n}{production\PYZus{}producteur}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{prod\PYZus{}lait\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{n}{producteurs\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hectolitre / Producteur}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production laitière annuelle par Producteur au Québec (1999 \PYZhy{} 2018)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Les symboles rouges représentent les projections au prorata pour 2018.
+Sources: Institut de la statistique du Québec (ISQ), Fédération des
+producteurs de lait du Québec (FPLQ) Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec}
+
+    Une augmentation de la production par producteur ces dernières années
+est observée. Cela, allié à la vérification d'un taux élevé de réduction
+du nombre de fermes par an à partir de 2014, indique la sortie des
+petits producteurs du marché laitiers au Québec.
+
+    \subsubsection{Est-ce que l'écart entre la production du Québec et son
+quota total alloué est stable dans le
+temps?}\label{est-ce-que-luxe9cart-entre-la-production-du-quuxe9bec-et-son-quota-total-allouuxe9-est-stable-dans-le-temps}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{prod\PYZus{}lait\PYZus{}mg} \PY{o}{=} \PY{n}{production}\PY{p}{[}\PY{p}{(}\PY{n}{production}\PY{o}{.}\PY{n}{detail1} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Type de production ou marché)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                                 \PY{p}{(}\PY{n}{production}\PY{o}{.}\PY{n}{detail2} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Matière grasse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{prod\PYZus{}lait\PYZus{}mg}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:}                   element                               detail1  \textbackslash{}
+          465  Production laitière   Total (Type de production ou marché)   
+          466  Production laitière   Total (Type de production ou marché)   
+          467  Production laitière   Total (Type de production ou marché)   
+          468  Production laitière   Total (Type de production ou marché)   
+          469  Production laitière   Total (Type de production ou marché)   
+          
+                      detail2 territoire      temps unite      valeur  note  
+          465  Matière grasse     Québec 2018-03-01    kg  12379676.0   NaN  
+          466  Matière grasse     Québec 2018-04-01    kg  11980116.0   NaN  
+          467  Matière grasse     Québec 2018-05-01    kg  12222525.0   NaN  
+          468  Matière grasse     Québec 2018-06-01    kg  11642126.0   NaN  
+          469  Matière grasse     Québec 2018-07-01    kg  11410171.0   NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{prod\PYZus{}lait\PYZus{}mgG} \PY{o}{=} \PY{n}{prod\PYZus{}lait\PYZus{}mg}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{prod\PYZus{}lait\PYZus{}mg}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{prod\PYZus{}lait\PYZus{}mg\PYZus{}year} \PY{o}{=} \PY{n}{prod\PYZus{}lait\PYZus{}mgG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{prod\PYZus{}lait\PYZus{}mg\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{prod\PYZus{}lait\PYZus{}mg\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{quota\PYZus{}mG} \PY{o}{=} \PY{n}{quota\PYZus{}m}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{quota\PYZus{}m}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{quota\PYZus{}y} \PY{o}{=} \PY{n}{quota\PYZus{}mG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{quota\PYZus{}y}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{quota\PYZus{}y}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+          
+          \PY{n}{quota\PYZus{}y}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}quota\PYZus{}m.tail()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} temps
+          2014    109135282
+          2015    111168064
+          2016    123797137
+          2017    140707112
+          2018    143176390
+          Name: valeur, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{} Répartition du quota de lait total1 \PYZhy{} 1erAOÛT 2017}
+          \PY{n}{qmm} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qmm\PYZus{}plus.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cible\PYZus{}1er\PYZus{}Août}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{7}\PY{o}{/}\PY{l+m+mi}{12}\PY{p}{)}
+          \PY{n}{qmm}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:}       Année     BC     AB     SK     MB   MCLO      ON      QC    NB    NS  \textbackslash{}
+          6   2014.00  26.01  26.77   9.75  13.51  76.03   98.48  124.08  4.43  5.39   
+          7   2015.00  26.68  27.65   9.86  13.84  78.04  100.82  126.54  4.33  5.41   
+          8   2016.00  30.08  29.89  10.41  14.54  84.91  111.80  128.86  5.89  7.56   
+          9   2017.00  32.58  32.37  11.28  15.75  91.98  118.61  136.71  6.25  8.02   
+          10  2017.42    NaN    NaN    NaN    NaN    NaN     NaN  140.05   NaN   NaN   
+          
+                PE      P5    NL      CA  cible\_1er\_Août  
+          6   4.53  236.91  1.96  314.91     2014.583333  
+          7   4.55  241.64  1.97  321.65     2015.583333  
+          8   4.43  258.54  2.54  345.99     2016.583333  
+          9   4.70  274.29  2.69  368.96     2017.583333  
+          10   NaN     NaN   NaN     NaN     2018.003333  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                  \PY{n}{prod\PYZus{}lait\PYZus{}mg\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}
+                  \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}ax.plot(np.arange(1999, 2019, step=1),}
+          \PY{c+c1}{\PYZsh{}        quota\PYZus{}y/10**6, c = \PYZsq{}darkgreen\PYZsq{}, alpha=0.5, linewidth = 4,}
+          \PY{c+c1}{\PYZsh{}        label = \PYZsq{}Droit de production annuelle (PLQ)\PYZsq{}, marker = \PYZsq{}o\PYZsq{})}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cible\PYZus{}1er\PYZus{}Août}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{qmm}\PY{o}{.}\PY{n}{QC}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}
+                  \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Quota total alloué au Québec (CCL)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} quelques valeurs de production totale établies au cours de l\PYZsq{}année laitière}
+          \PY{c+c1}{\PYZsh{} (Rapport Annuel 08/2012\PYZhy{}08/2017, PLQ)}
+          \PY{c+c1}{\PYZsh{}y = np.array([120535538, 118971759,}
+          \PY{c+c1}{\PYZsh{}              123000613, 126250658,}
+          \PY{c+c1}{\PYZsh{}              133376216])/10**6}
+          \PY{c+c1}{\PYZsh{}x = np.arange(2012.58, 2017.58, step=1)}
+          \PY{c+c1}{\PYZsh{}ax.scatter(x, y, c = \PYZsq{}darkgreen\PYZsq{}, marker = \PYZsq{}o\PYZsq{})}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{million kg de matière grasse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production laitière annuelle de MG au Québec (1999 \PYZhy{} 2018)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sources: Fédération des producteurs de lait du Québec (FPLQ),
+\href{http://www.dairyinfo.gc.ca/index_f.php?s1=dff-fcil\&s2=quota\&s3=if-tc}{Centre
+Canadien d'Information Laitière (CCIL)} Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec}
+
+    Le point pour la production de 2018 représentent une projection au
+prorata.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{p}{(}\PY{n}{prod\PYZus{}lait\PYZus{}mg\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}production\PYZus{}producteur.tail()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} temps
+          2014    119.63
+          2015    124.21
+          2016    128.57
+          2017    136.72
+          2018    141.94
+          Name: valeur, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{qmm}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:}         QC  cible\_1er\_Août
+          6   124.08     2014.583333
+          7   126.54     2015.583333
+          8   128.86     2016.583333
+          9   136.71     2017.583333
+          10  140.05     2018.003333
+\end{Verbatim}
+            
+    On observe une croissance importante de la production (hausse du quota)
+à partir de 2014. On doit montrer que cella est dû à une croissance de
+la demande de matière grasse pour le lait de transformation au cours des
+dernières années
+(\href{http://www.rmaaq.gouv.qc.ca//index.php?id=12}{Rapport annuel de
+gestion 2016-2017, RMAAQ}).
+
+La production a légèrement dépassé le quota total alloué au Québec et la
+tolérance positive au cours des deux dernières années. La CCGAL a
+prolongé la suspension de l'application des flexibilités associées au
+quota continu, soit 0,5 \% en tolérance positive et 1,5 \% en tolérance
+négative jusqu'en juillet 2018
+(\href{http://lait.org/notre-organisation/rapport-annuel/}{Rapport
+Annuel 2017, PLQ}). Mais au 1er juin 2018, le CCGAL a pris la décision
+de remettre en vigueur la politique relative aux dépassements de quota
+et à la sous-production.
+
+    \subsubsection{Les frais et les
+recettes}\label{les-frais-et-les-recettes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{frais} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frais.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{decimal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                              \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{frais} \PY{o}{=} \PY{n}{frais}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1er niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}frais.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{frais\PYZus{}total} \PY{o}{=} \PY{n}{frais}\PY{p}{[}\PY{n}{frais}\PY{o}{.}\PY{n}{detail} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Nature des frais)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{c+c1}{\PYZsh{}frais\PYZus{}total.tail()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{frais\PYZus{}totalG} \PY{o}{=} \PY{n}{frais\PYZus{}total}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{frais\PYZus{}total}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{frais\PYZus{}total\PYZus{}year} \PY{o}{=} \PY{n}{frais\PYZus{}totalG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{frais\PYZus{}total\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{frais\PYZus{}total\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{frais\PYZus{}total\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:} temps
+          2014    164331.3
+          2015    164179.9
+          2016    167546.2
+          2017    174426.1
+          2018    188016.0
+          Name: valeur, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{recettes} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recettes.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{decimal}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                              \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          
+          \PY{n}{recettes} \PY{o}{=} \PY{n}{recettes}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Élément statistique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{element}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1er niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4ème niveau de détail}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{detail4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{territoire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{temps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unité de mesure}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Valeur numérique}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{valeur}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{note}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}recettes.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{recettes\PYZus{}brutes} \PY{o}{=} \PY{n}{recettes}\PY{p}{[}\PY{p}{(}\PY{n}{recettes}\PY{o}{.}\PY{n}{detail1} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Type de production ou marché)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                                    \PY{p}{(}\PY{n}{recettes}\PY{o}{.}\PY{n}{detail2} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Composantes laitières)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                                    \PY{p}{(}\PY{n}{recettes}\PY{o}{.}\PY{n}{detail3} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{..Montant brut}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                                    \PY{p}{(}\PY{n}{recettes}\PY{o}{.}\PY{n}{detail4} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total (Provenance)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}recettes\PYZus{}brutes.tail()}
+\end{Verbatim}
+
+
+    \subsubsection{Quelle est la progression de l'industrie laitière
+(production) au Québec au cours des dix dernières années
+?}\label{quelle-est-la-progression-de-lindustrie-laitiuxe8re-production-au-quuxe9bec-au-cours-des-dix-derniuxe8res-annuxe9es}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{recettes\PYZus{}brutesG} \PY{o}{=} \PY{n}{recettes\PYZus{}brutes}\PY{o}{.}\PY{n}{valeur}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{recettes\PYZus{}brutes}\PY{o}{.}\PY{n}{temps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{recettes\PYZus{}brutes\PYZus{}year} \PY{o}{=} \PY{n}{recettes\PYZus{}brutesG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}frais\PYZus{}total\PYZus{}year.tail()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:} temps
+          2007    2.106352e+06
+          2008    2.095569e+06
+          2009    2.148786e+06
+          2010    2.198052e+06
+          2011    2.287681e+06
+          2012    2.320778e+06
+          2013    2.344613e+06
+          2014    2.402988e+06
+          2015    2.348270e+06
+          2016    2.429029e+06
+          2017    2.546463e+06
+          2018    2.530059e+06
+          Name: valeur, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{c+c1}{\PYZsh{} fraction des frais dans les recettes brutes}
+          \PY{p}{(}\PY{n}{frais\PYZus{}total\PYZus{}year} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{/} \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} 6.83
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{}fig, ax = plt.subplots(figsize=(8, 6))}
+          \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{,}
+                  \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{9}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recettes brutes (milliard \PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,} \PY{l+m+mi}{2019}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{frais\PYZus{}total\PYZus{}year} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{/}
+                  \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{frais\PYZus{}total\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{/}
+                  \PY{n}{recettes\PYZus{}brutes\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{9}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1999}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mf}{6.83}\PY{p}{,}\PY{l+m+mf}{6.83}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{,} \PY{l+m+mi}{2020}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frais / Recettes brutes (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Les symboles rouges représentent des estimations au prorata pour 2018.
+Sources: Institut de la statistique du Québec (ISQ), Fédération des
+producteurs de lait du Québec (FPLQ) Compilation:
+\href{http://www.bdso.gouv.qc.ca/pls/ken/ken214_tabl_detl.page_detl?p_iden_tran=REPERK547XJ20-14125033193695l7\&p_lang=1\&p_id_ss_domn=1053\&p_id_raprt=1969}{Institut
+de la statistique du Québec}
+
+    Au cours des dix dernières années les recettes bruttes de la production
+latière au Québec ont augmenté de 5\%, escomptés à l'inflation
+(\href{https://www.banqueducanada.ca/taux/renseignements-complementaires/feuille-de-calcul-de-linflation/}{IPC})
+au cours de la période (16\%). Pendant la même période, la production de
+lait est passé de 2,11 à 2,55 millions de hectolitres par année, soit
+une croissance de 15\%. On a vu (figure ci-dessus - \textbf{Production
+laitière annuelle}) qu'une partie importante de cette augmentation s'est
+produite au cours des trois dernières années.
+
+Les frais de mise en marché du lait au Québec s'élevent à environ 7\%.
+Ils sont composés de: Administration du plan conjoint, Publicité, Fonds
+de développement, Transport, Pénalité de qualité, Pénalité sur le lait
+canadien de qualité, Cotisation UPA, Administration du babillard, TPS,
+TVQ.
+
+    \subsubsection{La Transformation}\label{la-transformation}
+
+    \subsubsection{La Comsommation}\label{la-comsommation}
+
+    \subsubsection{Livraisons manufacturières de lait et produits laitiers
+au
+Canada}\label{livraisons-manufacturiuxe8res-de-lait-et-produits-laitiers-au-canada}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{livraisons} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{livraisons.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}livraisons.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{livraisons}\PY{o}{.}\PY{n}{annee}\PY{p}{,}
+                  \PY{n}{livraisons}\PY{o}{.}\PY{n}{valeur}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,}
+                  \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait et produits laitiers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2013}\PY{p}{,} \PY{l+m+mi}{2018}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Milliards de dollars}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{livraisons manufacturières (2013 \PYZhy{} 2017)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Source : Statistique Canada; Compilé par AAC-DIA, Section de
+l'Information sur les marchés
+
+    \section{La Demande}\label{la-demande}
+
+    \subsection{Revue des Marchés}\label{revue-des-marchuxe9s}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{demande} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{demande.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{demande}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}    Année  Demande Total  Lait de Transformation  Lait de Consommation     P5  \textbackslash{}
+          0   2017         368.75                  253.49                114.06  76.83   
+          1   2016         354.27                  239.03                114.08  76.55   
+          2   2015         332.59                  217.19                115.48  78.02   
+          3   2014         323.72                  202.04                116.17  79.03   
+          4   2013         313.51                  193.67                114.92  79.26   
+          5   2012         307.11                  191.07                116.04  79.88   
+          6   2011            NaN                  189.41                   NaN    NaN   
+          7   2010            NaN                  185.04                   NaN    NaN   
+          
+             Provinces de l'ouest  Programmes d'Innovation  Production  
+          0                 35.89                     1.20      369.24  
+          1                 36.03                     1.16      344.53  
+          2                 35.98                      NaN         NaN  
+          3                 35.61                      NaN      316.78  
+          4                 35.66                      NaN         NaN  
+          5                 36.16                      NaN         NaN  
+          6                   NaN                      NaN         NaN  
+          7                   NaN                      NaN         NaN  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{demande}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{demande}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait de Transformation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.4}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M kg de matière grasse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Besoins canadiens en lait de transformation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{demande}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{demande}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M kg de matière grasse (P5)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Besoins canadiens en lait de consommation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{,} \PY{n}{frameon}\PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{loc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax22} \PY{o}{=} \PY{n}{ax2}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax22}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{demande}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{demande}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ouest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax22}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M kg de matière grasse (Provinces de l}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ouest)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{ax22}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax22}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{,} \PY{n}{frameon}\PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{loc} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper right}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax22}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Source: \href{http://lait.org/leconomie-du-lait/statistiques/}{Les
+Producteurs de lait du Québec}
+
+    \textbf{Entente P5} : \emph{L'Île-du-Prince-Édouard, la Nouvelle-Écosse,
+le Nouveau-Brunswick, le Québec et l'Ontario collaborent et partagent
+les revenus depuis la signature de l'Entente sur mise en commun de tout
+le lait en 1996. Cette entente a par la suite été mise à jour puis
+remplacée par l'Accord sur la mise en commun du lait de l'Est du Canada
+(Entente P5) en avril 2010}
+(\href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?id=3810}{Commission
+canadienne du lait}).
+
+\textbf{Entente sur la mise en commun du lait de l'Ouest (MCLO)} :
+\emph{En mars 1997, les quatre provinces de l'Ouest (le Manitoba, la
+Saskatchewan, l'Alberta et la Colombie-Britannique) ont mis en oeuvre un
+système de mise en commun de tout le lait qui prévoit le partage des
+revenus et des marchés de toutes les classes de lait}
+(\href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?id=3810}{Commission
+canadienne du lait}).
+
+    \subsection{Ventes commerciales de lait et de
+crème}\label{ventes-commerciales-de-lait-et-de-cruxe8me}
+
+Source: Statistique Canada - Tableau 32-10-0114-01 (anciennement CANSIM
+003-0012)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{ventes} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ventes\PYZus{}canada\PYZus{}6\PYZus{}types\PYZus{}lait.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PÉRIODE DE RÉFÉRENCE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{ventes}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:}       PÉRIODE DE RÉFÉRENCE               GÉO DGUID  Produits de base  \textbackslash{}
+          43804           2018-06-01  Autres provinces   NaN   Crème à céréale   
+          43805           2018-06-01  Autres provinces   NaN    Crème de table   
+          43806           2018-06-01  Autres provinces   NaN  Crème à fouetter   
+          43807           2018-06-01  Autres provinces   NaN        Crème sure   
+          43808           2018-06-01  Autres provinces   NaN        Lait à 1 \%   
+          
+                UNITÉ DE MESURE  IDENTIFICATEUR D'UNITÉ DE MESURE FACTEUR SCALAIRE  \textbackslash{}
+          43804      Kilolitres                               195           unités   
+          43805      Kilolitres                               195           unités   
+          43806      Kilolitres                               195           unités   
+          43807      Kilolitres                               195           unités   
+          43808      Kilolitres                               195           unités   
+          
+                 IDENTIFICATEUR SCALAIRE  VECTEUR  COORDONNÉES  VALEUR STATUS  SYMBOLE  \textbackslash{}
+          43804                        0  v382584         12.6   354.0    NaN      NaN   
+          43805                        0  v382596         12.7  5529.0    NaN      NaN   
+          43806                        0  v382608         12.8     NaN      x      NaN   
+          43807                        0  v382620         12.9     NaN      x      NaN   
+          43808                        0  v382525         12.1  2674.0    NaN      NaN   
+          
+                TERMINÉ  DÉCIMALES  
+          43804     NaN          0  
+          43805     NaN          0  
+          43806     NaN          0  
+          43807     NaN          0  
+          43808     NaN          0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{ventesCA\PYZus{}tot} \PY{o}{=} \PY{n}{ventes}\PY{p}{[}\PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GÉO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{ventesCA\PYZus{}tot} \PY{o}{=} \PY{n}{ventesCA\PYZus{}tot}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VALEUR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Canada}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+          \PY{n}{ventesCA\PYZus{}totG} \PY{o}{=} \PY{n}{ventesCA\PYZus{}tot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{ventesCA\PYZus{}tot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PÉRIODE DE RÉFÉRENCE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{ventesCA\PYZus{}tot\PYZus{}year} \PY{o}{=} \PY{n}{ventesCA\PYZus{}totG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{6}
+          
+          \PY{n}{ventesQC\PYZus{}tot} \PY{o}{=} \PY{n}{ventes}\PY{p}{[}\PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GÉO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{ventesQC\PYZus{}tot} \PY{o}{=} \PY{n}{ventesQC\PYZus{}tot}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VALEUR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Québec}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+          \PY{n}{ventesQC\PYZus{}totG} \PY{o}{=} \PY{n}{ventesQC\PYZus{}tot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{ventesQC\PYZus{}tot}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PÉRIODE DE RÉFÉRENCE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{ventesQC\PYZus{}tot\PYZus{}year} \PY{o}{=} \PY{n}{ventesQC\PYZus{}totG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Projection au prorata pour 2018.}
+          \PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]} \PY{o}{=} \PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2018}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{/}\PY{l+m+mi}{6}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} PÉRIODE DE RÉFÉRENCE
+          2014    2908626.0
+          2015    2905875.0
+          2016    2897161.0
+          2017    2832738.0
+          2018    2836556.0
+          Name: Canada, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{million de litres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ventes commercialle de lait au Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}ax1.legend()}
+          
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{olive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                   \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{markersize} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{millon de litres}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ventes commercialle de lait au Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}ax2.legend()}
+          
+          \PY{c+c1}{\PYZsh{}fig.autofmt\PYZus{}xdate(rotation=45)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_95_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Source: Statistique Canada.
+\href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210011401}{Tableau
+32-10-0114-01 (anciennement CANSIM 003-0012) Ventes commerciales de lait
+et de crème}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:} PÉRIODE DE RÉFÉRENCE
+          2014    2908626.0
+          2015    2905875.0
+          2016    2897161.0
+          2017    2832738.0
+          2018    2836556.0
+          Name: Canada, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} PÉRIODE DE RÉFÉRENCE
+          2014    619708.0
+          2015    641603.0
+          2016    653234.0
+          2017    646471.0
+          2018    660052.0
+          Name: Québec, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maximum de ventes commercialles au Canada (2009): }\PY{l+s+si}{\PYZob{}0:0.2f\PYZcb{}}\PY{l+s+s1}{ milliards de litres}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{p}{(}\PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ventes commercialles au Canada en 2017: }\PY{l+s+si}{\PYZob{}0:0.2f\PYZcb{}}\PY{l+s+s1}{ milliards de litres}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{p}{(}\PY{n}{ventesCA\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2017}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ventes commercialles au Québec en 2017: }\PY{l+s+si}{\PYZob{}0:0.0f\PYZcb{}}\PY{l+s+s1}{ millions de litres}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+              \PY{p}{(}\PY{n}{ventesQC\PYZus{}tot\PYZus{}year}\PY{p}{[}\PY{l+m+mi}{2017}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Maximum de ventes commercialles au Canada (2009): 3.03 milliards de litres
+Ventes commercialles au Canada en 2017: 2.83 milliards de litres
+Ventes commercialles au Québec en 2017: 646 millions de litres
+
+    \end{Verbatim}
+
+    Les ventes commerciales totales de lait ont culminé, en atteignant 3,03
+milliards de litres au Canada en 2009, puis ont baissé à 2,83 milliards
+de litres en 2017. Au Québec, les ventes ont diminué régulièrement
+depuis 1987. En 2017, les ventes commercielles de lait au Québec étaient
+de 646 millions de litres.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{n}{ventesCA\PYZus{}homo} \PY{o}{=} \PY{n}{ventes}\PY{p}{[}\PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GÉO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                               \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait homogénéisé}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{ventesCA\PYZus{}homo} \PY{o}{=} \PY{n}{ventesCA\PYZus{}homo}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VALEUR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lait homogénéisé}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}                 
+          \PY{n}{ventesCA\PYZus{}homoG} \PY{o}{=} \PY{n}{ventesCA\PYZus{}homo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait homogénéisé}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{ventesCA\PYZus{}homo}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PÉRIODE DE RÉFÉRENCE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{ventesCA\PYZus{}homo\PYZus{}year} \PY{o}{=} \PY{n}{ventesCA\PYZus{}homoG}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{ventesCA\PYZus{}lait2} \PY{o}{=} \PY{n}{ventes}\PY{p}{[}\PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GÉO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                               \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait à 2 }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{ventesCA\PYZus{}lait2} \PY{o}{=} \PY{n}{ventesCA\PYZus{}lait2}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VALEUR}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lait à 2 }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}                 
+          \PY{n}{ventesCA\PYZus{}lait2G} \PY{o}{=} \PY{n}{ventesCA\PYZus{}lait2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait à 2 }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{n}{ventesCA\PYZus{}lait2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PÉRIODE DE RÉFÉRENCE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{p}{)}
+          \PY{n}{ventesCA\PYZus{}lait2\PYZus{}year} \PY{o}{=} \PY{n}{ventesCA\PYZus{}lait2G}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{ventes}\PY{p}{[}\PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GÉO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait homogénéisé}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait à 2 }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait écrémé}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Babeurre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait au chocolat et autres laits aromatisés}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{|}
+                 \PY{p}{(}\PY{n}{ventes}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Produits de base}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait à 1 }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}138}]:}       PÉRIODE DE RÉFÉRENCE               GÉO DGUID  \textbackslash{}
+          43799           2018-06-01  Autres provinces   NaN   
+          43800           2018-06-01  Autres provinces   NaN   
+          43801           2018-06-01  Autres provinces   NaN   
+          43802           2018-06-01  Autres provinces   NaN   
+          43808           2018-06-01  Autres provinces   NaN   
+          
+                                            Produits de base UNITÉ DE MESURE  \textbackslash{}
+          43799                                   Lait à 2 \%      Kilolitres   
+          43800                                  Lait écrémé      Kilolitres   
+          43801                                     Babeurre      Kilolitres   
+          43802  Lait au chocolat et autres laits aromatisés      Kilolitres   
+          43808                                   Lait à 1 \%      Kilolitres   
+          
+                 IDENTIFICATEUR D'UNITÉ DE MESURE FACTEUR SCALAIRE  \textbackslash{}
+          43799                               195           unités   
+          43800                               195           unités   
+          43801                               195           unités   
+          43802                               195           unités   
+          43808                               195           unités   
+          
+                 IDENTIFICATEUR SCALAIRE  VECTEUR  COORDONNÉES  VALEUR STATUS  SYMBOLE  \textbackslash{}
+          43799                        0  v382536         12.2  6361.0    NaN      NaN   
+          43800                        0  v382548         12.3  1942.0    NaN      NaN   
+          43801                        0  v382560         12.4    62.0    NaN      NaN   
+          43802                        0  v382572         12.5  4156.0    NaN      NaN   
+          43808                        0  v382525         12.1  2674.0    NaN      NaN   
+          
+                TERMINÉ  DÉCIMALES  
+          43799     NaN          0  
+          43800     NaN          0  
+          43801     NaN          0  
+          43802     NaN          0  
+          43808     NaN          0  
+\end{Verbatim}
+            
+    \section{Répartition du quota de lait total par
+province}\label{ruxe9partition-du-quota-de-lait-total-par-province}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{n}{qmm} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qmm.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QCvar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{pct\PYZus{}change}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+          \PY{n}{qmm}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:}    Année     BC     AB     SK     MB   MCLO      ON      QC    NB    NS    PE  \textbackslash{}
+          5   2013  25.83  25.70   8.95  12.50  72.98   99.91  116.19  5.27  6.75  3.98   
+          6   2014  26.01  26.77   9.75  13.51  76.03   98.48  124.08  4.43  5.39  4.53   
+          7   2015  26.68  27.65   9.86  13.84  78.04  100.82  126.54  4.33  5.41  4.55   
+          8   2016  30.08  29.89  10.41  14.54  84.91  111.80  128.86  5.89  7.56  4.43   
+          9   2017  32.58  32.37  11.28  15.75  91.98  118.61  136.71  6.25  8.02  4.70   
+          
+                 P5    NL      CA     QCvar  
+          5  232.11  1.89  306.99  0.224273  
+          6  236.91  1.96  314.91  6.790602  
+          7  241.64  1.97  321.65  1.982592  
+          8  258.54  2.54  345.99  1.833412  
+          9  274.29  2.69  368.96  6.091883  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{qmm}\PY{o}{.}\PY{n}{QC}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Québec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2008}\PY{p}{,} \PY{l+m+mi}{2018}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{million kg m.g.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Partie provinciale du QMM (au 1er août)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Année}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{qmm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QCvar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{l+m+mf}{2008.5}\PY{p}{,}\PY{l+m+mf}{2017.5}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dashed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2009}\PY{p}{,} \PY{l+m+mi}{2018}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variation (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variation de la part provinciale du QMM (au 1er août)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_105_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Source:
+\href{http://www.dairyinfo.gc.ca/index_f.php?s1=dff-fcil\&s2=quota\&s3=if-tc}{Centre
+Canadien d'Information Laitière (CCIL)}
+
+    \subsubsection{Le consommateur canadien paie t-il trop chère les
+produits
+laitiers?}\label{le-consommateur-canadien-paie-t-il-trop-chuxe8re-les-produits-laitiers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{prix\PYZus{}lait\PYZus{}world} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prix\PYZus{}lait\PYZus{}consommation.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{prixCA\PYZus{}US} \PY{o}{=} \PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prix.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}prixCA\PYZus{}US.head(10)}
+          \PY{c+c1}{\PYZsh{}prix\PYZus{}lait\PYZus{}world.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{p}{)}\PY{p}{)}
+           
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{y\PYZus{}pos}\PY{p}{,} \PY{n}{prix\PYZus{}lait\PYZus{}world}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pays}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix par litre (\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix de détail du lait de consommation(*)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{autofmt\PYZus{}xdate}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    (*) L'étude a considéré une période de 12 mois se terminant en octobre
+2017. Source:
+\href{https://www.exportactionglobal.com/dairyreport/}{Rapport sur le
+prix du lait frais, Société Nielsen, 2017 et Export Action Global}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{n\PYZus{}groups} \PY{o}{=} \PY{l+m+mi}{6}
+           
+          \PY{c+c1}{\PYZsh{} create plot}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{13}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{index} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}groups}\PY{p}{)}
+          \PY{n}{bar\PYZus{}width} \PY{o}{=} \PY{l+m+mf}{0.35}
+          \PY{n}{opacity} \PY{o}{=} \PY{l+m+mf}{0.8}
+          
+          \PY{n}{rects1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{index}\PY{p}{,} \PY{n}{prixCA\PYZus{}US}\PY{o}{.}\PY{n}{Canada}\PY{p}{,} \PY{n}{bar\PYZus{}width}\PY{p}{,}
+                           \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salmon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Canada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+           
+          \PY{n}{rects2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{n}{bar\PYZus{}width}\PY{p}{,} \PY{n}{prixCA\PYZus{}US}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{États\PYZhy{}Unis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bar\PYZus{}width}\PY{p}{,}
+                           \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{royalblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{États\PYZhy{}Unis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prix (\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comparaison des prix de détail au Canada et aux États\PYZhy{}Unis(*)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{n}{bar\PYZus{}width}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lait}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Beurre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cheddar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mozzarella}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crème}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Yogourt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{linestyle} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dotted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}fig.autofmt\PYZus{}xdate(rotation=45)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_111_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    (*) L'étude a considéré une période de 12 mois se terminant en octobre
+2017. Source:
+\href{https://www.exportactionglobal.com/dairyreport/}{Rapport sur le
+prix du lait frais, Société Nielsen, 2017 et Export Action Global}
+
+    Une étude récente (Rapport sur le prix du lait frais, Nielsen, 2017)
+montre que les prix de détail moyens du lait frais et d'autres produits
+laitiers se comparent bien aux prix ailluers dans le monde.
+
+    \subsubsection{Et au Québec ?}\label{et-au-quuxe9bec}
+
+    Au Québec la Régie des marchés agricoles et alimentaires
+(\href{http://www.rmaaq.gouv.qc.ca//index.php?id=49}{RMAAQ}) gère le
+prix des produits laitiers en fixant ses prix minimum et maximun au
+détail. \emph{Pour fixer le prix, la Régie tient compte de la valeur et
+des caractéristiques du produit, de ses conditions de production, de
+transport, de transformation et de livraison et de l'utilisation qui en
+est faite par les marchands de lait ainsi que des intérêts des
+producteurs, des marchands de lait, des distributeurs et des
+consommateurs}
+\href{http://www.rmaaq.gouv.qc.ca/fileadmin/DocuCentre/Decision/2017/11155.pdf}{(Décision
+11155, RMAAQ)}. La demande, du consommateur et du marché, et l'intérêt
+des producteurs et des détaillants sont pris en compte.
+
+Dans d'autres provinces, le lait est considéré comme un produit d'appel
+et le prix au détail n'est pas fixé. \emph{Les détaillants ne font pas
+d'argent avec le lait, ils peuvent même en perdre. Le but, c'est de vous
+offrir un produit de base à faibles coûts et de vous attirer dans le
+magasin pour vous vendre d'autres produits}
+\href{https://ici.radio-canada.ca/nouvelle/1036806/gestion-de-offre-pourquoi-lait-coute-plus-cher-au-quebec}{(Fillion
+2017)}.
+
+\emph{Alors, si l'on veut voir les prix baisser au Québec, ce n'est pas
+l'abandon de la gestion de l'offre qui va servir cet intérêt. C'est
+plutôt un débat sur la fixation des prix et la possibilité de considérer
+le lait comme un produit d'appel dans les magasins qui pourrait être
+lancé}
+\href{https://ici.radio-canada.ca/nouvelle/1036806/gestion-de-offre-pourquoi-lait-coute-plus-cher-au-quebec}{(Fillion
+2017)}.
+
+    \section{Un modèle économétrique pour la gestion en continu du
+quota}\label{un-moduxe8le-uxe9conomuxe9trique-pour-la-gestion-en-continu-du-quota}
+
+La CCL/CCGAL a mentionnée dans son dernier
+\href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?link=125}{rapport
+annuel 2016-2017} son intention de modifier sa méthodologie d'ajuste de
+quota pour mieux répondre à la variation de la demande. Un modèle
+économétrique d'estimation de quota dynamique me semble plus approprié.
+C'est le cas de la régression avec les données de séries temporelles de
+fréquence mensuelle.
+
+Après avoir compris le système complexe de gestion de l'offre au Canada
+et au Québec et avoir trouvé les sources de données, cela me semble être
+une tâche "plus simple" !! Les jeux de données que je trouve les plus
+pertinents sont disponibles ici:
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210011401}{Ventes
+  commerciales de lait et de crème: 32-10-0114-01 (anciennement CANSIM
+  003-0012)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210011301}{Production
+  et utilisation de lait: 32-10-0113-01 (anciennement CANSIM 003-0011)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210024701}{Fabrication
+  de sous-produits concentrés de lait: 32-10-0247-01 (anciennement
+  CANSIM 003-0029)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210011001}{Recettes
+  monétaires des ventes de lait et de crème hors ferme: 32-10-0110-01
+  (anciennement CANSIM 003-0008)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210000101}{Stocks
+  de certains produits laitiers: 32-10-0001-01 (anciennement CANSIM
+  003-0033)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=1810000201}{Prix
+  de détail moyens mensuels pour les aliments et autres produits
+  sélectionnés: 18-10-0002-01 (anciennement CANSIM 326-0012)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210013201}{Production
+  de la matière grasse (x 1 000): 32-10-0132-01 (anciennement CANSIM
+  003-0034)}
+\item
+  \href{https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=1810000403}{Indice
+  des prix à la consommation, données mensuelles non désaisonnalisées:
+  18-10-0004-03 (anciennement CANSIM 326-0020)}
+\item
+  \href{http://www.dairyinfo.gc.ca/index_f.php?s1=dff-fcil\#trade}{Importations
+  et exportations de produits laitiers}
+\end{enumerate}
+
+    \section{Problématique}\label{probluxe9matique}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Devrait-on augmenter le quota pour 2019 ?} Oui, environ 3-4\%.
+\item
+  \textbf{Le consommateur paie t-il trop chère ?}
+\item
+  \textbf{Les quotas sont-ils trop bas ?}
+\item
+  \textbf{Quelle est la progression de l'industrie laitière au Québec au
+  cours des dix dernières années ?}
+\item
+  \textbf{Est-ce que l'écart entre la production et les quotas est
+  stable dans le temps ?}
+\item
+  \textbf{Comment se compare les prix des produits laitiers au Québec
+  versus le reste du Canada ?}
+\item
+  \textbf{Que fait-on avec le lait de surproduction, comment se porte le
+  marché du lait en poudre au Québec ?} La demande du consommateur a se
+  modifiée ces dernières années. Avec la baisse de la demande du lait de
+  consommation au profit du beurre et du fromage le beurre est fabriqué
+  à partir du lait entier. Cela produit un surplus des solides non gras
+  (protéine du lait). La question du lait en poundre... manque
+\end{enumerate}
+
+    Référeces:
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://lactualite.com/societe/2016/05/10/les-defis-du-lait-quebecois/}{Borde,
+  Valérie, \textbf{\emph{Les défis du lait québécois}} mai 2016,
+  \emph{L'actualité}}
+\item
+  \href{https://www.agrireseau.net/economie-et-gestion/documents/91368}{The
+  Boston Consulting Group, \textbf{\emph{Analyse des impacts potentiels
+  de la fin de la gestion de l'offre dans l'industrie laitière au
+  Canada}} décembre 2015}
+\item
+  \href{https://www.iedm.org/fr/588-la-gestion-de-loffre-des-produits-agricoles-un-systeme-couteux-pour-les-consommateurs}{Boyer,
+  Marcel; Charlebois, Sylvain, \textbf{\emph{La gestion de l'offre des
+  produits agricoles : un système coûteux pour les consommateurs}} août
+  2007, \emph{IEDM}}
+\item
+  \href{http://www.cdc-ccl.gc.ca/CDC/index-fra.php?link=125}{Commission
+  Canadienne du lait, \textbf{\emph{Rapport annuel de la CCL 2016-2017}}
+  août 2017}
+\item
+  \href{https://lactualite.com/lactualite-affaires/2013/07/23/le-lait-une-histoire-de-vaches-et-de-sous/}{Duhamel,
+  Pierre, \textbf{\emph{Lait: une histoire de vaches\ldots{} et de
+  sous}} juillet 2013, \emph{L'actualité}}
+\item
+  \href{http://www.iedm.org/fr/53769-le-point-les-politiques-nefastes-de-gestion-de-l-offre-du-Canada}{Dumais,
+  Mario; Chassin, Youri, \textbf{\emph{Les politiques néfastes de
+  gestion de l'offre du Canada}} juin 2015, \emph{IEDM}}
+\item
+  \href{https://www.exportactionglobal.com/dairyreport/}{Export Action
+  Global, \textbf{\emph{Les Systèmes Laitiers dans le Monde: Les
+  consommateurs et les producteurs canadiens s'en tirent-ils mieux avec
+  le modèle canadien?}} avril 2018}
+\item
+  \href{https://ici.radio-canada.ca/nouvelle/1036806/gestion-de-offre-pourquoi-lait-coute-plus-cher-au-quebec}{Fillion,
+  Gérald, \textbf{\emph{Gestion de l'offre : pourquoi le lait coûte-t-il
+  plus cher au Québec?}} mai 2017, ici.radio-canada.ca}
+\item
+  \href{http://plus.lapresse.ca/screens/c41361e6-1861-4267-b962-f87e74a758d0__7C___0.html}{Gouin,
+  Daniel-Mercier; Doyon, Maurice, \textbf{\emph{La gestion de l'offre
+  attaquée à coups de sophismes}} mai 2017, \emph{La Presse}}
+\item
+  \href{https://www.conferenceboard.ca/e-library/abstract.aspx?did=6084}{Grant,
+  Michael; Barichello, Richard; Liew, Mark; Gill, Vijay,
+  \textbf{\emph{Réformer la gestion de l'offre laitière : Plaidoyer pour
+  la croissance}} 2014, Ottawa, Le Conference Board du Canada}
+\item
+  \href{https://bdp.parl.ca/Content/LOP/ResearchPublications/2015-138-f.html?cat=agriculture}{Heminthavong,
+  Khamla, \textbf{\emph{Le mécanisme de la gestion de l'offre au
+  Canada}} décembre 2015, \emph{Division de l'économie, des ressources
+  et des affaires internationales}, 2015-138-F}
+\item
+  \href{http://www.caaaq.gouv.qc.ca/userfiles/File/MEIDairy\%20fev05_FRENCH.pdf}{L'Institut
+  économique de Montréal, \textbf{\emph{Production laitière : les coûts
+  de la gestion de l'offre au Canada}} février 2005, \emph{Les Notes
+  Économiques}}
+\item
+  \href{https://unionpaysanne.com/publications/}{L'Union Paysanne,
+  \textbf{\emph{Vers une gestion de l'offre 2.0 au Canada}} novembre
+  2014}
+\item
+  \href{https://www.newswire.ca/fr/news-releases/bilan-annuel-du-marche-laitier-des-producteurs-de-lait-du-quebec---croissance-et-investissements-dans-le-secteur-laitier-attenues-par-lentree-en-vigueur-des-accords-commerciaux-679406953.html}{Les
+  Producteurs de lait du Québec, \textbf{\emph{Bilan annuel du marché
+  laitier des Producteurs de lait du Québec - Croissance et
+  investissements dans le secteur laitier, atténués par l'entrée en
+  vigueur des accords commerciaux}} avril 2018, Cision}
+\item
+  \href{http://lait.org/notre-organisation/rapport-annuel/}{Les
+  Protucteurs Laitiers du Canada, \textbf{\emph{Rapport Annuel 2017}}}
+\item
+  \href{https://www.producteurslaitiers.ca/que-faisons-nous/a-propos-de-la-gestion-de-l-offre/pourquoi-la-gestion-de-l-offre-fonctionne-t-elle-pour-les-canadiens}{Les
+  Protucteurs Laitiers du Canada, \textbf{\emph{Pourquoi la gestion de
+  l'offre fonctionne-t-elle pour les Canadiens?}} 2017}
+\item
+  \href{https://www.producteurslaitiers.ca/salle-de-presse/nouvelles/politique/les-producteurs-remettent-les-pendules-a-l-heure-au-sujet-de-la-gestion-de-l-offre-deuxieme-partie}{Les
+  Protucteurs Laitiers du Canada, \textbf{\emph{Les producteurs
+  remettent les pendules à l'heure au sujet de la gestion de l'offre
+  deuxième partie}} 2015, communiqué}
+\item
+  \href{https://ipolitics.ca/article/milk-a-perfect-mess-revisited/}{Lippert,
+  Owen, \textbf{\emph{Milk: A Perfect Mess Revisited}} 2018, iPOLITICS}
+\item
+  \href{https://www.fraserinstitute.org/sites/default/files/PerfectFoodinaPerfectMess.pdf}{Lippert,
+  Owen, \textbf{\emph{The Perfect Food in a Perfect Mess: The Cost of
+  Milk in Canada}} 2001, \emph{Public Policy Sources}, 52, The Fraser
+  Institute}
+\item
+  \href{http://www.rmaaq.gouv.qc.ca//index.php?id=12}{Régie des marchés
+  agricoles et alimentaires du Québec, \textbf{\emph{Rapport annuel de
+  gestion (2016-2017)}} septembre 2017}
+\item
+  \href{https://www150.statcan.gc.ca/n1/pub/21-004-x/2017001/article/14786-fra.htm}{St.
+  Pierre, Michelle, \textbf{\emph{Changements dans les préférences des
+  Canadiens relativement au lait et aux produits laitiers}} avril 2017,
+  \emph{Regards sur l'industrie agro-alimentaire et la communauté
+  agricole}, 21-004-X}
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

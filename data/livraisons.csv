@@ -1,0 +1,15 @@
+#Valeur des livraisons manufacturières
+#Ce rapport affiche les volumes
+#d'approvisionnement et écoulement de produits laitiers au Canada, par
+#produit sélectionné, et affiche les 5 dernières années.
+#
+#Source : Statistique Canada
+#
+#milliards de dollars au Canada
+#
+annee,valeur
+2013,15.82
+2014,14.24
+2015,13.45
+2016,14.67
+2017,14.30

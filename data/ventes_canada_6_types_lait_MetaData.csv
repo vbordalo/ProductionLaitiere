@@ -1,0 +1,67 @@
+﻿"Titre du cube";"Numéro d'identification du produit";"Numéro d'identification de CANSIM";URL;"Notes sur le cube";"État de l'archivage";Fréquence;"Début de la période de référence";"Fin de la période de référence";"Nombre total de dimensions"
+"Ventes commerciales de lait et de crème";32100114;"003-0012";"https://www150.statcan.gc.ca/t1/tbl1/fr/tv.action?pid=3210011401";"1,2,3,4";"ACTIF - un cube qui est disponible au public et qui est toujours mise a jour";Mensuelle;"1977-01-01";"2018-06-01";2
+
+"Numéro d'identification de la dimension";"Nom de la dimension";"Notes sur la dimension";"Définitions de la dimension"
+1;Géographie;;
+2;"Produits de base";;
+
+"Numéro d'identification de la dimension";"Nom du membre";"Code sur la classification";"Numéro d'identification du membre";"Numéro d'identification du membre parent";Terminé;"Notes sur le membre";"Définitions du membre"
+1;Canada;"[11124]";1;;;"1,2,3,4";
+1;"Terre-Neuve-et-Labrador";"[10]";2;1;;;
+1;"Île-du-Prince-Édouard";"[11]";3;1;t;;
+1;"Nouvelle-Écosse";"[12]";4;1;t;;
+1;"Nouveau-Brunswick";"[13]";5;1;t;;
+1;Québec;"[24]";6;1;;;
+1;Ontario;"[35]";7;1;;;
+1;Manitoba;"[46]";8;1;;;
+1;Saskatchewan;"[47]";9;1;t;;
+1;Alberta;"[48]";10;1;;;
+1;"Colombie-Britannique";"[59]";11;1;;;
+1;"Autres provinces";;12;1;;"1,2,3,4";
+2;"Lait homogénéisé";;1;;;;
+2;"Lait à 2 %";;2;;;;
+2;"Lait écrémé";;3;;;;
+2;Babeurre;;4;;;;
+2;"Lait au chocolat et autres laits aromatisés";;5;;;"5";
+2;"Crème à céréale";;6;;;;
+2;"Crème de table";;7;;;;
+2;"Crème à fouetter";;8;;;;
+2;"Crème sure";;9;;;"6";
+2;"Lait à 1 %";;10;;;;
+2;"Lait de poule";;11;;;;
+2;"Crème légère";;12;;;;
+
+Légende Symbole
+Description;Symbole
+"indisponible pour une période de référence précise";".."
+"inférieur à la limite de détection";<LDD
+"valeur arrondie à 0 (zéro) là où il y a une distinction importante entre le zéro absolu et la valeur arrondie";"0s"
+"qualité des données: excellente";A
+"qualité des données: très bonne";B
+"qualité des données: bonne";C
+"qualité des données: acceptable";D
+"à utiliser avec prudence";E
+"trop peu fiable pour être publié";F
+"n'ayant pas lieu de figurer";"..."
+provisoire;p
+révisé;r
+"confidentiel en vertu des dispositions de la Loi sur la statistique";x
+terminé;t
+
+"Code d'enquête";"Nom de l'enquête"
+"3430";"Enquête mensuelle sur la production et stocks des fabriques laitières"
+
+"Code du sujet";"Nom du sujet"
+"32";Agriculture
+
+"Numéro d'identification de la note";Note
+1;"À partir d'avril 1997, « autres provinces » comprend : l'Île-du-Prince-Édouard, Nouvelle-Écosse, Nouveau-Brunswick, et Saskatchewan pour le lait homogénéisé, lait à 2 %, lait à 1 %, lait écrémé, crème à céréale et crème à fouetter."
+2;"À partir d'avril 1997, « autres provinces » comprend : l'Île-du-Prince-Édouard, Nouvelle-Écosse, Nouveau-Brunswick, Manitoba, et Saskatchewan pour le babeurre, lait au chocolat et crème sure."
+3;"À partir d'avril 1997, « autres provinces » comprend: l'Île-du-Prince-Édouard, Nouvelle-Écosse, Nouveau-Brunswick, Manitoba, Saskatchewan, Alberta et Colombie-Britannique pour la crème de table."
+4;"À partir de janvier 2018, Canada et les autres provinces incluent Terre-Neuve-et-Labrador pour tous les produits."
+5;"Avant janvier 2016, « Chocolat et autres laits aromatisés » était connu comme « Lait au chocolat »."
+6;"Le 4 octobre 2017, les données pour la « Crème sure » ont été corrigées de janvier 2017 à juillet 2017."
+
+"Numéro d'identification de la correction";"Date de la correction";"Note sur la correction"
+"998";"2017-10-04";"<p>Le 4 octobre 2017, les données pour la « Crème sure » ont été corrigées de janvier 2017 à juillet 2017.<br></p>"
+
